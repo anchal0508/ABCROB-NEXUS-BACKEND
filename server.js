@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', homeRouter);
 
-db.sync().then(() => {
+db.sync({alter: true}).then(() => {
     app.listen(3000, () => console.log('Online...'));
 }).catch((err) => {
     console.log('DB did not Sync...', err.message);
