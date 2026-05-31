@@ -19,8 +19,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', homeRouter);
 
-db.sync({alter: true}).then(() => {
-    app.listen(3000, () => console.log('Online...'));
+// Is line ko server.js ke bilkul bottom me update karein
+const PORT = process.env.PORT || 3000;
+
+db.sync({ alter: true }).then(() => {
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}...`));
 }).catch((err) => {
     console.log('DB did not Sync...', err.message);
-})
+});

@@ -1,15 +1,15 @@
 const { Sequelize } = require('sequelize');
 
-// Seedhe Supabase ka details bina kisi .env file ke
+// Direct configuration: No .env, no string parsing errors
 const sequelize = new Sequelize('postgres', 'postgres', 'A1jadu_hai%@', {
-    host: '://supabase.com',
-    port: 5432, // Port 5432 sabse best hai cloud database ke liye
+    host: 'aws-1-ap-northeast-1.pooler.supabase.com',
+    port: 5432,
     dialect: 'postgres',
     logging: false,
     dialectOptions: {
         ssl: {
             require: true,
-            rejectUnauthorized: false // Cloud database connections ke liye yeh line compulsory hai
+            rejectUnauthorized: false
         }
     }
 });
