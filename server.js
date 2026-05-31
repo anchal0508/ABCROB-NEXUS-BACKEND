@@ -1,12 +1,14 @@
+require('dotenv').config();
 // Imported packages
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const homeRouter = require('./routers/homeRouter');
-
+const db = require('./config/postgres');
 const app = express();
-
 // Middlewares
+
+require('./models/index');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
