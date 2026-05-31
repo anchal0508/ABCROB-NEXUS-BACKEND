@@ -19,11 +19,14 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', homeRouter);
 
-// Is line ko server.js ke bilkul bottom me update karein
+// server.js ke sabse bottom waale part ko isse replace karein
 const PORT = process.env.PORT || 3000;
 
 db.sync({ alter: true }).then(() => {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}...`));
+    // Port ko string '0.0.0.0' par bind karna Render ke liye compulsory hai
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Server running successfully on port ${PORT}...`);
+    });
 }).catch((err) => {
     console.log('DB did not Sync...', err.message);
 });
