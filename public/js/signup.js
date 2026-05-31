@@ -1,3 +1,5 @@
+const CURRENT_HOST = window.location.origin; 
+
 const API_LINK = `${CURRENT_HOST}/api/classes`;
 const handleFormSignup = async (event) => {
     event.preventDefault();
