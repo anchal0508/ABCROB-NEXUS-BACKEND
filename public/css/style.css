@@ -1,0 +1,150 @@
+/* 1. बेसिक रीसेट */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 2. पूरी स्क्रीन का बैकग्राउंड */
+body {
+    background-color: #0A192F;
+    color: #8892B0;
+}
+
+/* 3. हेडर स्टाइल और ट्रांजिशन */
+header {
+    text-align: center;
+    padding: 20px;
+    height: 100px;
+    width: 100%;
+    transition: background-color 0.5s ease, font-size 0.5s ease; 
+}
+
+/* हेडर होवर इफ़ेक्ट */
+header:hover {
+    background-color: #64FFDA;
+    font-size: 25px;
+}
+
+/* होवर होने पर हेडर के h1 का रंग बदलना ताकि वह साफ़ दिखे */
+header:hover h1 {
+    color: #0A192F; 
+}
+
+h1 {
+    color: #FF8C00;
+    transition: color 0.5s ease;
+}
+
+/* 4. मुख्य कंटेनर और नेविगेशन बार (Nav) की स्टाइलिंग */
+.main-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: center; /* बटन को बीच में रखने के लिए */
+    gap: 30px;              /* Home और SignUp के बीच की दूरी */
+    background-color: #112240; /* हेडर से थोड़ा अलग गहरा नीला रंग */
+    padding: 15px;
+    border-radius: 8px;     /* कोनों को गोल करने के लिए */
+}
+
+nav span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #64FFDA;         /* चमकदार रंग */
+    cursor: pointer;        /* माउस ले जाने पर हाथ का निशान बने */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* नेविगेशन के आइटम्स पर होवर इफ़ेक्ट */
+nav span:hover {
+    color: #FF8C00;         /* होवर करने पर ऑरेंज हो जाएगा */
+    transform: translateY(-2px); /* हल्का सा ऊपर उठेगा */
+}
+
+/* 6. नेविगेशन लिंक्स की डिफ़ॉल्ट स्टाइल हटाना */
+nav a {
+    text-decoration: none; /* नीचे की अंडरलाइन हटाने के लिए */
+    color: inherit;        /* ताकि span का खुद का रंग (सियान) लागू रहे */
+}
+
+/* 7. लॉगिन बॉक्स के अंदर की हेडिंग (LogIn Text) */
+.login h2 {
+    color: #64FFDA;        /* चमकदार सियान रंग */
+    text-align: center;    /* बीच में रखने के लिए */
+    margin-bottom: 25px;   /* नीचे वाले इनपुट से दूरी */
+    font-size: 28px;
+    letter-spacing: 1px;   /* अक्षरों के बीच हल्का स्पेस */
+}
+
+/* इनपुट के अंदर दिखने वाले Placeholder का रंग */
+.login form input::placeholder {
+    color: #495670;        /* धुंधला ग्रे-ब्लू रंग ताकि साफ़ दिखे */
+    font-size: 14px;
+}
+
+
+/* 5. लॉगिन फॉर्म कंटेनर */
+.login {
+    background-color: #112240; /* हेडर और बॉडी से अलग गहरा नीला रंग */
+    max-width: 450px;          /* फॉर्म की चौड़ाई */
+    margin: 50px auto;         /* स्क्रीन के बीचों-बीच लाने के लिए */
+    padding: 40px;             /* अंदर का स्पेस */
+    border-radius: 12px;       /* गोल कोने */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* हल्का सा शैडो */
+}
+
+/* फॉर्म के अंदर के लेबल्स (Labels) */
+.login form label {
+    display: flex;             /* फ्लेक्सबॉक्स का उपयोग */
+    flex-direction: column;    /* टेक्स्ट ऊपर और इनपुट नीचे रखने के लिए */
+    margin-bottom: 25px;       /* दो इनपुट्स के बीच की दूरी */
+    font-size: 16px;
+    color: #8892B0;            /* ग्रे रंग का टेक्स्ट */
+    font-weight: bold;
+}
+
+/* इनपुट बॉक्स (Email और Password) */
+.login form input, .login form select {
+    background-color: #0A192F; /* मुख्य स्क्रीन वाला गहरा बैकग्राउंड */
+    border: 1px solid #233554; /* हल्का बॉर्डर */
+    padding: 12px;
+    margin-top: 8px;           /* लेबल टेक्स्ट से नीचे की दूरी */
+    color: #FFF;               /* लिखते समय सफ़ेद रंग दिखेगा */
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;             /* डिफ़ॉल्ट आउटलाइन हटाने के लिए */
+    transition: border-color 0.3s ease; /* बॉर्डर चेंज स्मूथ होगा */
+}
+
+/* इनपुट पर क्लिक (Focus) करने पर */
+.login form select:focus,
+.login form input:focus {
+    border-color: #64FFDA;     /* चमकदार सियान बॉर्डर बनेगा */
+}
+
+/* लॉगिन बटन स्टाइलिंग */
+.login form button {
+    width: 100%;               /* पूरी चौड़ाई */
+    background-color: transparent;
+    border: 2px solid #64FFDA; /* चमकदार सियान बॉर्डर */
+    color: #64FFDA;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;           /* हाथ का निशान */
+    transition: all 0.3s ease;
+}
+
+/* लॉगिन बटन होवर इफ़ेक्ट */
+.login form button:hover {
+    background-color: rgba(100, 255, 218, 0.1); /* हल्का सा बैकग्राउंड कलर */
+    transform: translateY(-3px);                /* हल्का ऊपर उठेगा */
+    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2); /* बटन चमकेगा */
+}

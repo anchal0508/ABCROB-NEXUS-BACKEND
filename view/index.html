@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Class</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Welcome to Online classes</h1>
+    </header>
+    <div class="main-container">
+        <nav>
+            <a href="/"><span>Home</span></a>
+            <a href="/signupPage"><span>SignUp</span></a>
+        </nav>
+        <div class="login">
+            <h2>LogIn</h2>
+            <form onsubmit="handleLogin(event)" method="POST">
+                <label for="email">Email:
+                    <input type="email" name="email" id="email" placeholder="abc@xyz.com" required/>
+                </label>
+                <label for="pass">password:
+                    <input type="password" name="pass" id="pass" placeholder="Your Password" required/>
+                </label>
+                <button type="submit">LogIn</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/home.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"></script>
+</body>
+
+</html>
