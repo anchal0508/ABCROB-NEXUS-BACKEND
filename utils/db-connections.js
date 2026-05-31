@@ -1,15 +1,16 @@
 const { Sequelize } = require('sequelize');
 
-// Direct configuration: No .env, no string parsing errors
 const sequelize = new Sequelize('postgres', 'postgres', 'A1jadu_hai%@', {
-    host: 'aws-1-ap-northeast-1.pooler.supabase.com',
+    host: '://supabase.com',
     port: 5432,
     dialect: 'postgres',
     logging: false,
     dialectOptions: {
         ssl: {
             require: true,
-            rejectUnauthorized: false
+            rejectUnauthorized: false,
+            // Yeh line tenant identity fix karegi aur error door karegi
+            servername: '://supabase.com'
         }
     }
 });
