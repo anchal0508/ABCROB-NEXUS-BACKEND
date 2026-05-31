@@ -1,4 +1,4 @@
-const API_LINK = "http://localhost:3000/api/classes";
+const API_LINK = `${CURRENT_HOST}/api/classes`;
 const handleFormSignup = async (event) => {
     event.preventDefault();
     console.log('Form signUp...');
