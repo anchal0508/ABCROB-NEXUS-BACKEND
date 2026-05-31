@@ -24,6 +24,11 @@ const PORT =   3000;
 
  
     // Port ko string '0.0.0.0' par bind karna Render ke liye compulsory hai
-    app.listen(PORT ,() => {
-        console.log(`Server running successfully on port ${PORT}...`);
-    })
+ db.sync({alter: true}).then(()=>{
+     app.listen(PORT ,() => {
+          console.log(`Server running successfully on port ${PORT}...`);
+      })
+
+ }) .catch((error)=>{
+    console.log(error.message);
+ })
