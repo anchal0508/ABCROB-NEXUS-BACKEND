@@ -6,8 +6,6 @@ const path = require('path');
 const homeRouter = require('./routers/homeRouter');
 const db = require('./config/postgres'); 
 
-// 🚨 SABSE ZAROORI: Apne models file ko yahan link karein taaki database ko tables pata chalein
-// Agar aapki file ka naam alag hai (jaise models.js), toh wo path dalein
 
 const app = express();
 

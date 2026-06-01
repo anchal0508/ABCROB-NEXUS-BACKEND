@@ -1,6 +1,7 @@
-
+const User = require('../models/user')
 const { asyncWrapProviders } = require('async_hooks');
 const path = require('path');
+
 
 const getHomePage = async (req, res) => {
     res.sendFile(path.join(__dirname, "..", "view", "index.html"));
