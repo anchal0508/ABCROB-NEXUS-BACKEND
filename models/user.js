@@ -1,6 +1,7 @@
 'use strict';
 
 const { Model } = require('sequelize');
+const bcrypt = require('bcrypt'); 
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -28,6 +29,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
 
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false 
+    },
+    dob: {
+      type: DataTypes.DATEONLY, 
+      allowNull: true,         
+      validate: {
+        isDate: true,          
+      }
+    },
+
+
     password: {
       type: DataTypes.STRING,
       allowNull: false
@@ -41,8 +55,16 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: async (user) => {
         if (user.password) {
-          const salut = await bcrypt.genSalt(process.env.PASSWORD_SALT = 12);
-          user.password = await bcrypt.hash(user.password, salut);
+          const saltRounds = parseInt(process.env.PASSWORD_SALT) || 12;
+          const salt = await bcrypt.genSalt(saltRounds);
+          user.password = await bcrypt.hash(user.password, salt);
+        }
+      },
+      beforeUpdate: async (user) => {
+        if (user.changed('password')) {
+          const saltRounds = parseInt(process.env.PASSWORD_SALT) || 12;
+          const salt = await bcrypt.genSalt(saltRounds);
+          user.password = await bcrypt.hash(user.password, salt);
         }
       }
     }

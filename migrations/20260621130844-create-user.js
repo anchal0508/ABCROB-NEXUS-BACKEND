@@ -1,37 +1,73 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
-  },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+
+const { Model } = require('sequelize');
+const bcrypt = require('bcrypt');
+
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    static associate(models) {
+      // define association here
+    }
   }
+  User.init({
+
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: { isEmail: true },
+    },
+
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: "CUSTOMER",
+      allowNull: false
+    },
+
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true 
+    },
+
+    dob: {
+      type: DataTypes.DATEONLY, 
+      allowNull: true,         
+      validate: {
+        isDate: true,          
+      }
+    },
+
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+
+  }, {
+    sequelize,
+    modelName: 'User',
+    tableName: 'users',
+    timestamps: false,
+    hooks: {
+      beforeCreate: async (user) => {
+        if (user.password) {
+          const saltRounds = parseInt(process.env.PASSWORD_SALT) || 12;
+          const salt = await bcrypt.genSalt(saltRounds);
+          user.password = await bcrypt.hash(user.password, salt);
+        }
+      },
+      beforeUpdate: async (user) => {
+        if (user.changed('password')) {
+          const saltRounds = parseInt(process.env.PASSWORD_SALT) || 12;
+          const salt = await bcrypt.genSalt(saltRounds);
+          user.password = await bcrypt.hash(user.password, salt);
+        }
+      }
+    }
+  });
+  return User;
 };
