@@ -1,13 +1,12 @@
 const { Sequelize } = require('sequelize');
 
-// Supabase details yahan directly fill karein (bina URL string banaye)
 const sequelize = new Sequelize({
     dialect: 'postgres',
-    host: '://supabase.com', // Apna exact host name check karke likhein
-    username: 'postgres.irvjebwkrfcctmoimvcz',       // Apna exact user ID likhein
-    password: 'Aapka_Real_Password',                 // Apna real password likhein (bina kisi %25 ke, jaisa simple password hai)
+    host: 'aws-1-ap-southeast-1.pooler.supabase.com', // Yahan aws-1 kar dein
+    username: 'postgres.irvjebwkrfcctmoimvcz',       
+    password: 'Aapka_Real_Password',                 
     database: 'postgres',
-    port: 5432,                                      // Session Pooler ka standard port 5432 hai
+    port: 5432,                                      
     logging: console.log, 
     dialectOptions: {
         ssl: {

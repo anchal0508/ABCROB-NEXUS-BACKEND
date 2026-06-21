@@ -1,17 +1,14 @@
-require('dotenv').config();
-require('dotenv').config(); // Yeh aapki .env file ko read karega
-
 const dbConfig = {
-  username: process.env.SUPABASE_DB_USER || 'postgres',
-  password: process.env.SUPABASE_DB_PASSWORD,
-  database: process.env.SUPABASE_DB_NAME || 'postgres',
-  host: process.env.SUPABASE_DB_HOST,
+  username: 'postgres.irvjebwkrfcctmoimvcz', 
+  password: 'Aapka_Real_Password',           
+  database: 'postgres',
+  host: 'aws-1-ap-southeast-1.pooler.supabase.com', // Yahan bhi aws-1 kar dein
   dialect: 'postgres',
-  port: process.env.SUPABASE_DB_PORT, 
+  port: 5432, 
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false // Remote connection block hone se rokne ke liye
+      rejectUnauthorized: false 
     }
   }
 };
