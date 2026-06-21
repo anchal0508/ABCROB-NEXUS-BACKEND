@@ -1,12 +1,10 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize({
+// [YOUR-PASSWORD] ki jagah apna real password dalein (bina brackets ke)
+const connectionString = "postgresql://postgres.irvjebwkrfcctmoimvcz:OHKQs18LjpDk2ejT@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres";
+
+const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
-    host: 'aws-1-ap-southeast-1.pooler.supabase.com', // Yahan aws-1 kar dein
-    username: 'postgres.irvjebwkrfcctmoimvcz',       
-    password: 'Aapka_Real_Password',                 
-    database: 'postgres',
-    port: 5432,                                      
     logging: console.log, 
     dialectOptions: {
         ssl: {
