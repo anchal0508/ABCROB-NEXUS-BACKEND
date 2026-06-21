@@ -1,13 +1,11 @@
-const { Sequelize } = require('sequelize'); // <-- Yeh line miss ho gayi thi
-require('dotenv').config();
+const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize({
+// Supabase se mili poori Session ya Transaction Pooler URL yahan direct paste karein
+// Isme apna real password manually likh dena (bina kisi %25 ya encoding ke, jaisa normal password hai)
+const connectionString = "postgresql://postgres.irvjebwkrfcctmoimvcz:A1_jadu_hai@://supabase.com";
+
+const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
-    host: process.env.SUPABASE_DB_HOST,
-    username: process.env.SUPABASE_DB_USER,
-    password: process.env.SUPABASE_DB_PASSWORD,
-    database: process.env.SUPABASE_DB_NAME || 'postgres',
-    port: parseInt(process.env.SUPABASE_DB_PORT) || 5432, 
     logging: console.log, 
     dialectOptions: {
         ssl: {
