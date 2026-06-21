@@ -1,14 +1,10 @@
-const { Sequelize } = require('sequelize');
-require('dotenv').config();
-
-// Har ek variable ko alag se pass karein, bina URI string banaye
 const sequelize = new Sequelize({
     dialect: 'postgres',
     host: process.env.SUPABASE_DB_HOST,
-    username: process.env.SUPABASE_DB_USER || 'postgres',
+    username: process.env.SUPABASE_DB_USER,
     password: process.env.SUPABASE_DB_PASSWORD,
     database: process.env.SUPABASE_DB_NAME || 'postgres',
-    port: parseInt(process.env.SUPABASE_DB_PORT) || 5432,
+    port: parseInt(process.env.SUPABASE_DB_PORT) || 5432, // Ab yeh .env se 5432 uthayega
     logging: console.log, 
     dialectOptions: {
         ssl: {
@@ -17,5 +13,3 @@ const sequelize = new Sequelize({
         }
     }
 });
-
-module.exports = sequelize;
