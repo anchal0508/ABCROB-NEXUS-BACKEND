@@ -1,10 +1,15 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
-// Direct connection string used
-const sequelize = new Sequelize(process.env.DIRECT_URL, {
+// Har ek variable ko alag se pass karein, bina URI string banaye
+const sequelize = new Sequelize({
     dialect: 'postgres',
-    logging: console.log,
+    host: process.env.SUPABASE_DB_HOST,
+    username: process.env.SUPABASE_DB_USER || 'postgres',
+    password: process.env.SUPABASE_DB_PASSWORD,
+    database: process.env.SUPABASE_DB_NAME || 'postgres',
+    port: parseInt(process.env.SUPABASE_DB_PORT) || 5432,
+    logging: console.log, 
     dialectOptions: {
         ssl: {
             require: true,
