@@ -1,7 +1,8 @@
 const { Sequelize } = require('sequelize');
+require('dotenv').config(); // Yeh line local development ke liye zaroori hai
 
-// [YOUR-PASSWORD] ki jagah apna real password dalein (bina brackets ke)
-const connectionString = "postgresql://postgres.irvjebwkrfcctmoimvcz:OHKQs18LjpDk2ejT@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres";
+// Ab yeh bilkul secure hai, koi aapka password nahi dekh payega
+const connectionString = process.env.DATABASE_URL;
 
 const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
