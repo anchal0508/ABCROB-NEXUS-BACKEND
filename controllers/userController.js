@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const addUser = async (req, res, next) => {
     try {
-
-        const { name, email, password } = req.body;
+        const { name, email, password, phone, phoneNumber, dob, dateOfBirth } = req.body;
         
         if (!name || !email || !password) {
             const error = new Error('All fields (name, email, password) are required');
@@ -12,12 +11,18 @@ const addUser = async (req, res, next) => {
             throw error;
         }
 
-        const userResponse = await userService.registerUser({ name, email, password });
+        const userResponse = await userService.registerUser({ 
+            name, 
+            email, 
+            password,
+            phone: phone || phoneNumber || null, 
+            dob: dob || dateOfBirth || null      
+        });
 
         const token = jwt.sign(
             { id: userResponse.id },
             process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRE_IN }
+            { expiresIn: process.env.JWT_EXPIRE_IN || '24h' }
         );
 
         res.cookie('token', token, {
@@ -25,7 +30,7 @@ const addUser = async (req, res, next) => {
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: 24 * 60 * 60 * 1000
-        })
+        });
 
         return res.status(201).json({
             success: true,
@@ -35,6 +40,8 @@ const addUser = async (req, res, next) => {
                     name: userResponse.name,
                     email: userResponse.email,
                     role: userResponse.role,
+                    phone: userResponse.phone, 
+                    dob: userResponse.dob      
                 }
             }
         });
