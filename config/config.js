@@ -2,17 +2,25 @@ require('dotenv').config();
 
 module.exports = {
   development: {
-    url: process.env.DATABASE_URL,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 5432,
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false
+        rejectUnauthorized: false // Render से Supabase कनेक्ट करने के लिए यह बहुत ज़रूरी है
       }
     }
   },
   test: {
-    url: process.env.DATABASE_URL,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 5432,
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
@@ -22,7 +30,11 @@ module.exports = {
     }
   },
   production: {
-    url: process.env.DATABASE_URL,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 5432,
     dialect: 'postgres',
     dialectOptions: {
       ssl: {

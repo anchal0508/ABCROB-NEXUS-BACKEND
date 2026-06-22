@@ -53,5 +53,6 @@ db.sequelize.authenticate()
         });
     })
     .catch((err) => {
-        console.error('CRITICAL: DB Connection failed...', err.message);
+        // err.message की जगह पूरा err प्रिंट करें ताकि असली वजह दिखे
+        console.error('CRITICAL: DB Connection failed...', err); 
     });

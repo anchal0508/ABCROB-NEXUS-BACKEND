@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // define association here
+      // यहाँ आप अपनी भविष्य की एसोसिएशन्स डिफाइन कर सकते हैं
     }
   }
   User.init({
@@ -31,8 +31,9 @@ module.exports = (sequelize, DataTypes) => {
 
     phone: {
       type: DataTypes.STRING,
-      allowNull: false 
+      allowNull: true // 🌟 इसे सुधारा गया है ताकि बिना फोन नंबर के भी यूजर रजिस्टर हो सके
     },
+
     dob: {
       type: DataTypes.DATEONLY, 
       allowNull: true,         
@@ -40,7 +41,6 @@ module.exports = (sequelize, DataTypes) => {
         isDate: true,          
       }
     },
-
 
     password: {
       type: DataTypes.STRING,
@@ -54,14 +54,16 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     hooks: {
       beforeCreate: async (user) => {
-        if (user.password) {
+        // 🌟 पक्का करते हैं कि पासवर्ड प्लेन टेक्स्ट है और पहले से हैश नहीं है
+        if (user.password && !user.password.startsWith('$2a$')) {
           const saltRounds = parseInt(process.env.PASSWORD_SALT) || 12;
           const salt = await bcrypt.genSalt(saltRounds);
           user.password = await bcrypt.hash(user.password, salt);
         }
       },
       beforeUpdate: async (user) => {
-        if (user.changed('password')) {
+        // 🌟 सिर्फ तभी हैश करेंगे जब पासवर्ड सच में बदला गया हो
+        if (user.changed('password') && !user.password.startsWith('$2a$')) {
           const saltRounds = parseInt(process.env.PASSWORD_SALT) || 12;
           const salt = await bcrypt.genSalt(saltRounds);
           user.password = await bcrypt.hash(user.password, salt);
