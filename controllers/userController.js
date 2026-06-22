@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken');
 
 const addUser = async (req, res, next) => {
     try {
-        const { name, email, password, phone, phoneNumber, dob, dateOfBirth } = req.body;
+        // 🌟 आपके कहे अनुसार फ़ील्ड्स को बिल्कुल सटीक सेट कर दिया गया है
+        const { name, email, role, phone, dob, password } = req.body;
         
         if (!name || !email || !password) {
             const error = new Error('All fields (name, email, password) are required');
@@ -11,12 +12,14 @@ const addUser = async (req, res, next) => {
             throw error;
         }
 
+        // 🌟 अब ये सभी फ़ील्ड्स सीधे आपकी सर्विस फ़ंक्शन में पास हो रही हैं
         const userResponse = await userService.registerUser({ 
             name, 
             email, 
-            password,
-            phone: phone || phoneNumber || null, 
-            dob: dob || dateOfBirth || null      
+            role: role || "CUSTOMER", // यदि फ्रंटएंड से रोल न आए तो डिफ़ॉल्ट कस्टमर रहेगा
+            phone, 
+            dob, 
+            password 
         });
 
         const token = jwt.sign(
@@ -40,8 +43,8 @@ const addUser = async (req, res, next) => {
                     name: userResponse.name,
                     email: userResponse.email,
                     role: userResponse.role,
-                    phone: userResponse.phone, 
-                    dob: userResponse.dob      
+                    phone: userResponse.phone,
+                    dob: userResponse.dob
                 }
             }
         });
