@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const db = require('./config/postgres');
+const db = require('./models/index');
 
 
 const app = express();
