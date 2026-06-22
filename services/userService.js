@@ -4,8 +4,6 @@ const bcrypt = require('bcryptjs');
 class UserService {
     /**
      * Find a user by their email address (Dynamic Attribute Isolation)
-     * @param {string} email 
-     * @param {boolean} includePassword 
      */
     async findUserByEmail(email, includePassword = false) {
         if (!email) return null;
@@ -24,8 +22,17 @@ class UserService {
     }
 
     /**
+     *  For Context API, profile check finding user by ID
+     */
+    async findUserById(id) {
+        if (!id) return null;
+        return await User.findByPk(id, {
+            attributes: { exclude: ['password'] }
+        });
+    }
+
+    /**
      * Register a brand new user in the system
-     * @param {Object} userData 
      */
     async registerUser(userData) {
         const { name, email, password, phone, dob, role } = userData;
@@ -53,9 +60,7 @@ class UserService {
     }
 
     /**
-     * Authenticater / Login Workflow
-     * @param {string} email 
-     * @param {string} plainPassword 
+     * Authenticator / Login Workflow
      */
     async loginUser(email, plainPassword) {
         if (!email || !plainPassword) {
@@ -68,7 +73,7 @@ class UserService {
 
         if (!user) {
             const error = new Error('Invalid email or password');
-            error.statusCode = 401; // 401: Unauthorized
+            error.statusCode = 401; 
             throw error;
         }
 
