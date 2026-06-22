@@ -45,13 +45,13 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 
 // Force Sync setup jo tables banayega
-db.sync({ alter: true })
+db.sequelize.authenticate()
     .then(() => {
-        console.log("Database synced and tables created successfully! 🚀");
+        console.log("Database connected successfully to Supabase! 🚀");
         app.listen(PORT, '0.0.0.0', () => {
             console.log(`Server running successfully on port ${PORT}...`);
         });
     })
     .catch((err) => {
-        console.error('CRITICAL: DB did not Sync...', err.message);
+        console.error('CRITICAL: DB Connection failed...', err.message);
     });
